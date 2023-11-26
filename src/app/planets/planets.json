@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Mercury",
+    "distanceToSun": 57.9,
+    "orbitalSpeed": 47.87
+  },
+  {
+    "name": "Venus",
+    "distanceToSun": 108.2,
+    "orbitalSpeed": 35.02
+  },
+  {
+    "name": "Earth",
+    "distanceToSun": 149.6,
+    "orbitalSpeed": 29.78
+  },
+  {
+    "name": "Mars",
+    "distanceToSun": 227.9,
+    "orbitalSpeed": 24.13
+  },
+  {
+    "name": "Jupiter",
+    "distanceToSun": 778.6,
+    "orbitalSpeed": 13.07
+  },
+  {
+    "name": "Saturn",
+    "distanceToSun": 1433.5,
+    "orbitalSpeed": 9.69
+  },
+  {
+    "name": "Uranus",
+    "distanceToSun": 2872.5,
+    "orbitalSpeed": 6.81
+  },
+  {
+    "name": "Neptune",
+    "distanceToSun": 4495.1,
+    "orbitalSpeed": 5.43
+  },
+  {
+    "name": "Pluto",
+    "distanceToSun": 5906.4,
+    "orbitalSpeed": 4.74
+  }
+]
