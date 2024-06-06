@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import "./styles.scss";
 
 export const metadata = {
   title: "RisoLAB - Summer 2024",
