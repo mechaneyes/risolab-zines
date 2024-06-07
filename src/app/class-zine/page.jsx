@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { type Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-const classZine: Sketch = (p) => {
+const classZine = (p) => {
   // Function to shuffle an array
-  const shuffleArray = (array: any[]): any[] => {
+  const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -16,52 +15,44 @@ const classZine: Sketch = (p) => {
 
   const colorsCols = 9;
   const colorsRows = 7;
-  const colorsOpacity = 160;
+  const colorsOpacity = 255;
   const size = 120;
 
-  // Riso Ink Colors
-  // https://www.stencil.wiki/colors
-  // 
   const systemOneColors = [
-    // [0, 0, 0, colorsOpacity], // black
-    [0, 120, 191, colorsOpacity], // blue
-    [98, 168, 229, colorsOpacity], // cornflower
-    [0, 157, 165, colorsOpacity], // light teal
-    [0, 169, 92, colorsOpacity], // green
-    [247, 255, 0, colorsOpacity], // yellow
-    [255, 108, 47, colorsOpacity], // orange
-    [241, 80, 96, colorsOpacity], // bright red
-    [255, 72, 176, colorsOpacity], // fluorescent pink
-    [157, 122, 210, colorsOpacity], // violet
-    [172, 147, 110, colorsOpacity], // metallic gold
+    [0, 120, 191, colorsOpacity],
+    [98, 168, 229, colorsOpacity],
+    [0, 157, 165, colorsOpacity],
+    [0, 169, 92, colorsOpacity],
+    [247, 255, 0, colorsOpacity],
+    [255, 108, 47, colorsOpacity],
+    [241, 80, 96, colorsOpacity],
+    [255, 72, 176, colorsOpacity],
+    [157, 122, 210, colorsOpacity],
+    [172, 147, 110, colorsOpacity],
   ];
 
   const systemTwoColors = [
-    // [0, 0, 0, colorsOpacity], // black
-    [73, 130, 207, colorsOpacity], // sky blue
-    [94, 200, 229, colorsOpacity], // aqua
-    [227, 237, 85, colorsOpacity], // light lime
-    [247, 255, 0, colorsOpacity], // Yellow
-    [246, 80, 88, colorsOpacity], // scarlet
-    [255, 72, 176, colorsOpacity], // fluorescent pink
-    [172, 147, 110, colorsOpacity], // metallic gold
+    [73, 130, 207, colorsOpacity],
+    [94, 200, 229, colorsOpacity],
+    [227, 237, 85, colorsOpacity],
+    [247, 255, 0, colorsOpacity],
+    [246, 80, 88, colorsOpacity],
+    [255, 72, 176, colorsOpacity],
+    [172, 147, 110, colorsOpacity],
   ];
 
   const colors = Array(colorsCols)
     .fill(0)
     .map(() => Array(colorsRows).fill(0));
 
-  // Generate the colors
   for (let x = 0; x < colorsCols; x++) {
     for (let y = 0; y < colorsRows; y++) {
-      // Select a random color from predefinedColors
       const color =
         systemTwoColors[Math.floor(Math.random() * systemTwoColors.length)];
       colors[x][y] = color;
     }
   }
 
-  // Get the color array
   let colorArray;
 
   for (let x = 0; x < colors.length; x++) {
@@ -70,13 +61,11 @@ const classZine: Sketch = (p) => {
     }
   }
 
-  // Shuffle the color array
   colorArray = shuffleArray(colorArray);
 
-  // Destructure the color array
   const [r, g, b] = colorArray;
 
-  const gridMain = (fillCallback: (p: any) => void) => {
+  const gridMain = (fillCallback) => {
     const cols = 10;
     const rows = 8;
 
@@ -108,7 +97,6 @@ const classZine: Sketch = (p) => {
           0
         );
 
-        // Fill is passed as parameter when calling gridMain()
         fillCallback(p);
 
         p.ellipse(0, 0, size, size);
@@ -117,8 +105,6 @@ const classZine: Sketch = (p) => {
     }
   };
 
-  // inner grid of circles 5x5 offset to overlap with gridMain
-  //
   const gridInner = () => {
     const cols = 9;
     const rows = 7;
@@ -151,17 +137,12 @@ const classZine: Sketch = (p) => {
           0
         );
 
-        // Get the color array
         let colorArray = colors[x][y];
 
-        // Shuffle the color array
         colorArray = shuffleArray(systemTwoColors);
 
-        // Destructure the color array
         const [r, g, b, a] = colorArray;
 
-        // Set the fill color with 80% opacity
-        // p.fill(r, g, b, 255 * colorsOpacity);
         p.fill(r, g, b, a);
 
         p.ellipse(0, 0, size, size);
@@ -171,14 +152,11 @@ const classZine: Sketch = (p) => {
   };
 
   p.setup = () => {
-    // 1280x989 === 11x8.5 inches
     const cnv = p.createCanvas(1280, 989);
     p.noLoop();
 
-    // Scale up the canvas for printing purposes
     p.pixelDensity(3);
 
-    // Save the canvas as PNG when pressing 's'
     p.keyPressed = () => {
       if (p.key === "s") {
         const date = new Date();
@@ -195,11 +173,10 @@ const classZine: Sketch = (p) => {
     p.noFill();
     p.rect(0, 0, 1280, 989);
 
-    // gridMain((p5) => p.fill(r, g, b, 255 * colorsOpacity));
     gridInner();
     gridMain((p5) => {
-      p.stroke(0); // Set the stroke color to white
-      p.noFill(); // Disable filling geometry
+      p.stroke(0);
+      p.noFill();
     });
   };
 };
