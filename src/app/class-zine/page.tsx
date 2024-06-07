@@ -6,11 +6,6 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import init, { p5SVG } from "p5.js-svg";
 
 const classZine: Sketch = (p: p5SVG) => {
-  const colorsCols = 7;
-  const colorsRows = 6;
-  const colorsOpacity = 0.6;
-  const size = 124;
-
   // Function to shuffle an array
   const shuffleArray = (array: any[]): any[] => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -19,6 +14,11 @@ const classZine: Sketch = (p: p5SVG) => {
     }
     return array;
   };
+
+  const colorsCols = 9;
+  const colorsRows = 7;
+  const colorsOpacity = 0.6;
+  const size = 120;
 
   /* Color Theme Swatches in Hex */
   // $Miami-Beach #031CA6;
@@ -61,8 +61,8 @@ const classZine: Sketch = (p: p5SVG) => {
   const [r, g, b] = colorArray;
 
   const gridMain = (fillCallback: (p: any) => void) => {
-    const cols = 8;
-    const rows = 5;
+    const cols = 10;
+    const rows = 8;
 
     p.noFill();
     p.stroke(0);
@@ -104,8 +104,8 @@ const classZine: Sketch = (p: p5SVG) => {
   // inner grid of circles 5x5 offset to overlap with gridMain
   //
   const gridInner = () => {
-    const cols = 7;
-    const rows = 4;
+    const cols = 9;
+    const rows = 7;
 
     p.noFill();
     p.stroke(0);
@@ -154,7 +154,8 @@ const classZine: Sketch = (p: p5SVG) => {
   };
 
   p.setup = () => {
-    const cnv = p.createCanvas(1024, 664, p.SVG);
+    // 1280x989 === 11x8.5 inches
+    const cnv = p.createCanvas(1280, 989, p.SVG);
     p.noLoop();
 
     // Scale up the canvas for printing purposes
@@ -178,7 +179,7 @@ const classZine: Sketch = (p: p5SVG) => {
     p.stroke(0);
     p.strokeWeight(2);
     p.noFill();
-    p.rect(0, 0, 1024, 664);
+    p.rect(0, 0, 1280, 989);
 
     gridMain((p5) => p.fill(r, g, b, 255 * colorsOpacity));
     gridInner();
