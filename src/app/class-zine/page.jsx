@@ -19,36 +19,46 @@ const classZine = (p) => {
   const size = 120;
 
   const systemOneColors = [
-    [0, 120, 191, colorsOpacity],
-    [98, 168, 229, colorsOpacity],
-    [0, 157, 165, colorsOpacity],
-    [0, 169, 92, colorsOpacity],
-    [247, 255, 0, colorsOpacity],
-    [255, 108, 47, colorsOpacity],
-    [241, 80, 96, colorsOpacity],
-    [255, 72, 176, colorsOpacity],
-    [157, 122, 210, colorsOpacity],
-    [172, 147, 110, colorsOpacity],
+    // [0, 0, 0, colorsOpacity], // black
+    [0, 120, 191, colorsOpacity], // blue
+    [98, 168, 229, colorsOpacity], // cornflower
+    [0, 157, 165, colorsOpacity], // light teal
+    [0, 169, 92, colorsOpacity], // green
+    [247, 255, 0, colorsOpacity], // yellow
+    [255, 108, 47, colorsOpacity], // orange
+    [241, 80, 96, colorsOpacity], // bright red
+    [255, 72, 176, colorsOpacity], // fluorescent pink
+    [157, 122, 210, colorsOpacity], // violet
+    [172, 147, 110, colorsOpacity], // metallic gold
   ];
 
   const systemTwoColors = [
-    [73, 130, 207, colorsOpacity],
-    [94, 200, 229, colorsOpacity],
-    [227, 237, 85, colorsOpacity],
-    [247, 255, 0, colorsOpacity],
-    [246, 80, 88, colorsOpacity],
-    [255, 72, 176, colorsOpacity],
-    [172, 147, 110, colorsOpacity],
+    // [0, 0, 0, colorsOpacity], // black
+    [73, 130, 207, colorsOpacity], // sky blue
+    [94, 200, 229, colorsOpacity], // aqua
+    [227, 237, 85, colorsOpacity], // light lime
+    [247, 255, 0, colorsOpacity], // Yellow
+    [246, 80, 88, colorsOpacity], // scarlet
+    [255, 72, 176, colorsOpacity], // fluorescent pink
+    [172, 147, 110, colorsOpacity], // metallic gold
   ];
 
+  // Shuffle the systemTwoColors array
+  const shuffledSystemTwoColors = shuffleArray([...systemTwoColors]);
+
+  // Create the colors array
   const colors = Array(colorsCols)
     .fill(0)
     .map(() => Array(colorsRows).fill(0));
 
+  // Assign the colors from shuffledSystemTwoColors to the colors array
   for (let x = 0; x < colorsCols; x++) {
     for (let y = 0; y < colorsRows; y++) {
+      // Use modulo to loop back to the start of the array when we reach the end
       const color =
-        systemTwoColors[Math.floor(Math.random() * systemTwoColors.length)];
+        shuffledSystemTwoColors[
+          (x * colorsRows + y) % shuffledSystemTwoColors.length
+        ];
       colors[x][y] = color;
     }
   }
@@ -61,11 +71,7 @@ const classZine = (p) => {
     }
   }
 
-  colorArray = shuffleArray(colorArray);
-
-  const [r, g, b] = colorArray;
-
-  const gridMain = (fillCallback) => {
+  const gridMain = (noFill) => {
     const cols = 10;
     const rows = 8;
 
@@ -97,7 +103,14 @@ const classZine = (p) => {
           0
         );
 
-        fillCallback(p);
+        colorArray = shuffleArray(systemTwoColors);
+        const [r, g, b, a] = colorArray;
+        p.fill(r, g, b, a);
+        p.stroke(0);
+
+        if (noFill) {
+          p.noFill();
+        }
 
         p.ellipse(0, 0, size, size);
         p.pop();
@@ -137,12 +150,8 @@ const classZine = (p) => {
           0
         );
 
-        let colorArray = colors[x][y];
-
         colorArray = shuffleArray(systemTwoColors);
-
         const [r, g, b, a] = colorArray;
-
         p.fill(r, g, b, a);
 
         p.ellipse(0, 0, size, size);
@@ -173,11 +182,9 @@ const classZine = (p) => {
     p.noFill();
     p.rect(0, 0, 1280, 989);
 
+    gridMain();
     gridInner();
-    gridMain((p5) => {
-      p.stroke(0);
-      p.noFill();
-    });
+    gridMain(true);
   };
 };
 
