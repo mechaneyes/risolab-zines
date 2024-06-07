@@ -16,40 +16,35 @@ const classZine: Sketch = (p) => {
 
   const colorsCols = 9;
   const colorsRows = 7;
-  const colorsOpacity = 0.6;
+  const colorsOpacity = 160;
   const size = 120;
 
-  /* Color Theme Swatches in Hex */
-  // $Miami-Beach-1-hex: #031CA6;
-  // $Miami-Beach-2-hex: #0468BF;
-  // $Miami-Beach-3-hex: #049DD9;
-  // $Miami-Beach-4-hex: #D97904;
-  // $Miami-Beach-5-hex: #D91E1E;
-
-  /* Color Theme Swatches in RGBA */
-  // 3, 27, 165;
-  // 3, 103, 191;
-  // 4, 156, 216;
-  // 216, 121, 4;
-  // 216, 30, 30;
-
-  const predefinedColors = [
-    [3, 27, 165], // Red
-    [3, 103, 191], // Green
-    [4, 156, 216], // Blue
-    [216, 121, 4], // Yellow
-    [216, 30, 30], // Cyan
+  // Riso Ink Colors
+  // https://www.stencil.wiki/colors
+  // 
+  const systemOneColors = [
+    // [0, 0, 0, colorsOpacity], // black
+    [0, 120, 191, colorsOpacity], // blue
+    [98, 168, 229, colorsOpacity], // cornflower
+    [0, 157, 165, colorsOpacity], // light teal
+    [0, 169, 92, colorsOpacity], // green
+    [247, 255, 0, colorsOpacity], // yellow
+    [255, 108, 47, colorsOpacity], // orange
+    [241, 80, 96, colorsOpacity], // bright red
+    [255, 72, 176, colorsOpacity], // fluorescent pink
+    [157, 122, 210, colorsOpacity], // violet
+    [172, 147, 110, colorsOpacity], // metallic gold
   ];
 
   const systemTwoColors = [
-    [73, 130, 207], // sky blue
-    [94, 200, 229], // aqua
-    [227, 237, 85], // light lime
-    [247, 255, 0], // Yellow
-    [246, 80, 88], // scarlet
-    [255, 72, 176], // fluorescent pink
-    [172, 147, 110], // metallic gold
-    // [0, 0, 0], // black
+    // [0, 0, 0, colorsOpacity], // black
+    [73, 130, 207, colorsOpacity], // sky blue
+    [94, 200, 229, colorsOpacity], // aqua
+    [227, 237, 85, colorsOpacity], // light lime
+    [247, 255, 0, colorsOpacity], // Yellow
+    [246, 80, 88, colorsOpacity], // scarlet
+    [255, 72, 176, colorsOpacity], // fluorescent pink
+    [172, 147, 110, colorsOpacity], // metallic gold
   ];
 
   const colors = Array(colorsCols)
@@ -163,11 +158,11 @@ const classZine: Sketch = (p) => {
         colorArray = shuffleArray(systemTwoColors);
 
         // Destructure the color array
-        const [r, g, b] = colorArray;
+        const [r, g, b, a] = colorArray;
 
         // Set the fill color with 80% opacity
         // p.fill(r, g, b, 255 * colorsOpacity);
-        p.fill(r, g, b, 0.3 * 255);
+        p.fill(r, g, b, a);
 
         p.ellipse(0, 0, size, size);
         p.pop();
@@ -196,9 +191,6 @@ const classZine: Sketch = (p) => {
 
   p.draw = () => {
     p.background(255);
-
-    // Draw 2px stroke around the canvas with aspect ratio 17:11
-    p.stroke(0);
     p.strokeWeight(2);
     p.noFill();
     p.rect(0, 0, 1280, 989);
