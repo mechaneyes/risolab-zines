@@ -3,9 +3,8 @@
 import React, { useEffect } from "react";
 import { type Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
-import init, { p5SVG } from "p5.js-svg";
 
-const classZine: Sketch = (p: p5SVG) => {
+const classZine: Sketch = (p) => {
   // Function to shuffle an array
   const shuffleArray = (array: any[]): any[] => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -21,13 +20,38 @@ const classZine: Sketch = (p: p5SVG) => {
   const size = 120;
 
   /* Color Theme Swatches in Hex */
-  // $Miami-Beach #031CA6;
-  // $Miami-Beach #0468BF;
-  // $Miami-Beach #049DD9;
-  // $Miami-Beach #D97904;
-  // $Miami-Beach #D91E1E;
+  // $Miami-Beach-1-hex: #031CA6;
+  // $Miami-Beach-2-hex: #0468BF;
+  // $Miami-Beach-3-hex: #049DD9;
+  // $Miami-Beach-4-hex: #D97904;
+  // $Miami-Beach-5-hex: #D91E1E;
 
-  // Create a 2D array to store the colors
+  /* Color Theme Swatches in RGBA */
+  // 3, 27, 165;
+  // 3, 103, 191;
+  // 4, 156, 216;
+  // 216, 121, 4;
+  // 216, 30, 30;
+
+  const predefinedColors = [
+    [3, 27, 165], // Red
+    [3, 103, 191], // Green
+    [4, 156, 216], // Blue
+    [216, 121, 4], // Yellow
+    [216, 30, 30], // Cyan
+  ];
+
+  const systemTwoColors = [
+    [73, 130, 207], // sky blue
+    [94, 200, 229], // aqua
+    [227, 237, 85], // light lime
+    [247, 255, 0], // Yellow
+    [246, 80, 88], // scarlet
+    [255, 72, 176], // fluorescent pink
+    [172, 147, 110], // metallic gold
+    // [0, 0, 0], // black
+  ];
+
   const colors = Array(colorsCols)
     .fill(0)
     .map(() => Array(colorsRows).fill(0));
@@ -35,12 +59,9 @@ const classZine: Sketch = (p: p5SVG) => {
   // Generate the colors
   for (let x = 0; x < colorsCols; x++) {
     for (let y = 0; y < colorsRows; y++) {
-      const color = [
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        0.8,
-      ];
+      // Select a random color from predefinedColors
+      const color =
+        systemTwoColors[Math.floor(Math.random() * systemTwoColors.length)];
       colors[x][y] = color;
     }
   }
@@ -139,13 +160,14 @@ const classZine: Sketch = (p: p5SVG) => {
         let colorArray = colors[x][y];
 
         // Shuffle the color array
-        colorArray = shuffleArray(colorArray);
+        colorArray = shuffleArray(systemTwoColors);
 
         // Destructure the color array
         const [r, g, b] = colorArray;
 
         // Set the fill color with 80% opacity
-        p.fill(r, g, b, 255 * colorsOpacity);
+        // p.fill(r, g, b, 255 * colorsOpacity);
+        p.fill(r, g, b, 0.3 * 255);
 
         p.ellipse(0, 0, size, size);
         p.pop();
@@ -155,7 +177,7 @@ const classZine: Sketch = (p: p5SVG) => {
 
   p.setup = () => {
     // 1280x989 === 11x8.5 inches
-    const cnv = p.createCanvas(1280, 989, p.SVG);
+    const cnv = p.createCanvas(1280, 989);
     p.noLoop();
 
     // Scale up the canvas for printing purposes
@@ -181,7 +203,7 @@ const classZine: Sketch = (p: p5SVG) => {
     p.noFill();
     p.rect(0, 0, 1280, 989);
 
-    gridMain((p5) => p.fill(r, g, b, 255 * colorsOpacity));
+    // gridMain((p5) => p.fill(r, g, b, 255 * colorsOpacity));
     gridInner();
     gridMain((p5) => {
       p.stroke(0); // Set the stroke color to white
