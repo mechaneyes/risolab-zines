@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-const classZine = (p) => {
+const classZine = (p, refreshKey) => {
   // Function to shuffle an array
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -137,10 +137,10 @@ const classZine = (p) => {
         const colorArray = shuffleArray(systemOneColors);
         const [r, g, b, a] = colorArray;
         p.fill(r, g, b, a);
-        
+
         if (noFill) {
-            p.noFill();
-          }
+          p.noFill();
+        }
 
         p.ellipse(0, 0, size, size);
         p.pop();
@@ -171,12 +171,25 @@ const classZine = (p) => {
     p.rect(0, 0, 1280, 989);
     p.strokeWeight(2);
 
-    gridMain(true);
-    gridInner(true);
+    gridMain();
+    gridInner();
     gridMain(true);
   };
 };
 
 export default function ClassZine() {
-  return <NextReactP5Wrapper sketch={classZine} />;
+  const [refreshKey, setRefreshKey] = useState(true);
+
+  const refreshSketch = () => {
+    setRefreshKey((currentValue) => !currentValue);
+  };
+
+  return (
+    <div>
+      <button className="refresh-sketch" onClick={refreshSketch}>
+        Refresh Sketch
+      </button>
+      <NextReactP5Wrapper sketch={(p) => classZine(p, refreshKey)} />
+    </div>
+  );
 }
