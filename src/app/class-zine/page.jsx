@@ -15,7 +15,7 @@ const classZine = (p) => {
 
   const colorsCols = 9;
   const colorsRows = 7;
-  const colorsOpacity = 255;
+  const colorsOpacity = 150;
   const size = 120;
 
   const systemOneColors = [
@@ -44,7 +44,7 @@ const classZine = (p) => {
   ];
 
   // Shuffle the systemTwoColors array
-  const shuffledSystemTwoColors = shuffleArray([...systemTwoColors]);
+  const shuffledSystemTwoColors = shuffleArray([...systemOneColors]);
 
   // Create the colors array
   const colors = Array(colorsCols)
@@ -63,21 +63,9 @@ const classZine = (p) => {
     }
   }
 
-  let colorArray;
-
-  for (let x = 0; x < colors.length; x++) {
-    for (let y = 0; y < colors[x].length; y++) {
-      colorArray = colors[x][y];
-    }
-  }
-
   const gridMain = (noFill) => {
     const cols = 10;
     const rows = 8;
-
-    p.noFill();
-    p.stroke(0);
-    p.strokeWeight(2);
 
     const totalWidth = size * (cols - 1);
     const totalHeight = size * (rows - 1);
@@ -103,7 +91,7 @@ const classZine = (p) => {
           0
         );
 
-        colorArray = shuffleArray(systemTwoColors);
+        const colorArray = shuffleArray(systemOneColors);
         const [r, g, b, a] = colorArray;
         p.fill(r, g, b, a);
         p.stroke(0);
@@ -118,13 +106,9 @@ const classZine = (p) => {
     }
   };
 
-  const gridInner = () => {
+  const gridInner = (noFill) => {
     const cols = 9;
     const rows = 7;
-
-    p.noFill();
-    p.stroke(0);
-    p.strokeWeight(2);
 
     const totalWidth = size * (cols - 1);
     const totalHeight = size * (rows - 1);
@@ -150,9 +134,13 @@ const classZine = (p) => {
           0
         );
 
-        colorArray = shuffleArray(systemTwoColors);
+        const colorArray = shuffleArray(systemOneColors);
         const [r, g, b, a] = colorArray;
         p.fill(r, g, b, a);
+        
+        if (noFill) {
+            p.noFill();
+          }
 
         p.ellipse(0, 0, size, size);
         p.pop();
@@ -178,12 +166,13 @@ const classZine = (p) => {
 
   p.draw = () => {
     p.background(255);
-    p.strokeWeight(2);
+    p.strokeWeight(1);
     p.noFill();
     p.rect(0, 0, 1280, 989);
+    p.strokeWeight(2);
 
-    gridMain();
-    gridInner();
+    gridMain(true);
+    gridInner(true);
     gridMain(true);
   };
 };
