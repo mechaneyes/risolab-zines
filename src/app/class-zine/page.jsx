@@ -19,78 +19,62 @@ const classZine = (p, refreshKey) => {
   const size = 120;
 
   const systemOneColors = [
-    // [0, 0, 0, colorsOpacity], // black
-    [0, 120, 191, colorsOpacity], // blue
-    [98, 168, 229, colorsOpacity], // cornflower
-    [0, 157, 165, colorsOpacity], // light teal
-    [0, 169, 92, colorsOpacity], // green
-    [247, 255, 0, colorsOpacity], // yellow
-    [255, 108, 47, colorsOpacity], // orange
-    [241, 80, 96, colorsOpacity], // bright red
-    [255, 72, 176, colorsOpacity], // fluorescent pink
-    [157, 122, 210, colorsOpacity], // violet
-    [172, 147, 110, colorsOpacity], // metallic gold
-
-    // [255, 255, 255, colorsOpacity], // spacer
-    // [255, 255, 255, colorsOpacity], // spacer
-    // [255, 255, 255, colorsOpacity], // spacer
+    // [0, 0, 0, colorsOpacity, 1],     // black
+    [0, 120, 191, colorsOpacity, 1], // blue
+    [98, 168, 229, colorsOpacity, 1], // cornflower
+    [0, 157, 165, colorsOpacity, 1], // light teal
+    [0, 169, 92, colorsOpacity, 1], // green
+    [247, 255, 0, colorsOpacity, 1], // yellow
+    [255, 108, 47, colorsOpacity, 1], // orange
+    [241, 80, 96, colorsOpacity, 1], // bright red
+    [255, 72, 176, colorsOpacity, 1], // fluorescent pink
+    [157, 122, 210, colorsOpacity, 1], // violet
+    [172, 147, 110, colorsOpacity, 1], // metallic gold
+    [255, 255, 255, colorsOpacity, 1], // white
   ];
 
   const systemTwoColors = [
-    // [0, 0, 0, colorsOpacity], // black
-    [73, 130, 207, colorsOpacity], // sky blue
-    [94, 200, 229, colorsOpacity], // aqua
-    // [227, 237, 85, colorsOpacity], // light lime
-    // [247, 255, 0, colorsOpacity], // Yellow
-    [246, 80, 88, colorsOpacity], // scarlet
-    // [255, 72, 176, colorsOpacity], // fluorescent pink
-    // [172, 147, 110, colorsOpacity], // metallic gold
+    [0, 0, 0, colorsOpacity, 1], // black
+    [73, 130, 207, colorsOpacity, 1], // sky blue
+    [94, 200, 229, colorsOpacity, 1], // aqua
+    [227, 237, 85, colorsOpacity, 1], // light lime
+    [247, 255, 0, colorsOpacity, 1], // Yellow
+    [246, 80, 88, colorsOpacity, 1], // scarlet
+    [255, 72, 176, colorsOpacity, 1], // fluorescent pink
+    [172, 147, 110, colorsOpacity, 1], // metallic gold
+    [255, 255, 255, 255, 1], // white
   ];
 
-  const toothGaps = [
-    [73, 130, 207, colorsOpacity], // sky blue
-    [73, 130, 207, colorsOpacity], // sky blue
-    [94, 200, 229, colorsOpacity], // aqua
-    [94, 200, 229, colorsOpacity], // aqua
-    [94, 200, 229, colorsOpacity], // aqua
-    [246, 80, 88, colorsOpacity], // scarlet
-
-    [255, 255, 255, 255], // spacer
-    [255, 255, 255, 255], // spacer
-    // [255, 255, 255, 255], // spacer
+  const chosen = [
+    [73, 130, 207, colorsOpacity, 2], // sky blue
+    [94, 200, 229, colorsOpacity, 3], // aqua
+    [246, 80, 88, colorsOpacity, 1], // scarlet
+    [255, 255, 255, 255, 2], // white
   ];
 
-  const doubles = [
-    [73, 130, 207, colorsOpacity], // sky blue
-    [73, 130, 207, colorsOpacity], // sky blue
-    [94, 200, 229, colorsOpacity], // aqua
-    [94, 200, 229, colorsOpacity], // aqua
-    [94, 200, 229, colorsOpacity], // aqua
-    [246, 80, 88, colorsOpacity], // scarlet
+  // Take the 5th element of the color array and return
+  // a new array with the colors repeated that many times
+  //
+  const repeatedColors = chosen.reduce((acc, [r, g, b, a, times]) => {
+    return acc.concat(Array(times).fill([r, g, b, a]));
+  }, []);
 
-    [255, 255, 255, 255], // spacer
-    [255, 255, 255, 255], // spacer
-    // [255, 255, 255, 255], // spacer
-  ];
+  const colorEmployed = repeatedColors;
 
-  const colorEmployed = toothGaps
-
-  // Shuffle the systemTwoColors array
-  const shuffledSystemTwoColors = shuffleArray([...colorEmployed]);
+  // Shuffle the colorEmployed array
+  const shuffledColors = shuffleArray([...colorEmployed]);
 
   // Create the colors array
   const colors = Array(colorsCols)
     .fill(0)
     .map(() => Array(colorsRows).fill(0));
 
-  // Assign the colors from shuffledSystemTwoColors to the colors array
+  // Assign the colors from shuffledColors to the colors array
   for (let x = 0; x < colorsCols; x++) {
     for (let y = 0; y < colorsRows; y++) {
-      // Use modulo to loop back to the start of the array when we reach the end
+      // Modulo to loop back to the start of the array when end reached
       const color =
-        shuffledSystemTwoColors[
-          (x * colorsRows + y) % shuffledSystemTwoColors.length
-        ];
+        shuffledColors[(x * colorsRows + y) % shuffledColors.length];
       colors[x][y] = color;
     }
   }
