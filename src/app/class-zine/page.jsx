@@ -15,7 +15,7 @@ const classZine = (p, refreshKey) => {
 
   const colorsCols = 9;
   const colorsRows = 7;
-  const colorsOpacity = 150;
+  const colorsOpacity = 180;
   const size = 120;
 
   const systemOneColors = [
@@ -30,21 +30,53 @@ const classZine = (p, refreshKey) => {
     [255, 72, 176, colorsOpacity], // fluorescent pink
     [157, 122, 210, colorsOpacity], // violet
     [172, 147, 110, colorsOpacity], // metallic gold
+
+    // [255, 255, 255, colorsOpacity], // spacer
+    // [255, 255, 255, colorsOpacity], // spacer
+    // [255, 255, 255, colorsOpacity], // spacer
   ];
 
   const systemTwoColors = [
     // [0, 0, 0, colorsOpacity], // black
     [73, 130, 207, colorsOpacity], // sky blue
     [94, 200, 229, colorsOpacity], // aqua
-    [227, 237, 85, colorsOpacity], // light lime
-    [247, 255, 0, colorsOpacity], // Yellow
+    // [227, 237, 85, colorsOpacity], // light lime
+    // [247, 255, 0, colorsOpacity], // Yellow
     [246, 80, 88, colorsOpacity], // scarlet
-    [255, 72, 176, colorsOpacity], // fluorescent pink
-    [172, 147, 110, colorsOpacity], // metallic gold
+    // [255, 72, 176, colorsOpacity], // fluorescent pink
+    // [172, 147, 110, colorsOpacity], // metallic gold
   ];
 
+  const toothGaps = [
+    [73, 130, 207, colorsOpacity], // sky blue
+    [73, 130, 207, colorsOpacity], // sky blue
+    [94, 200, 229, colorsOpacity], // aqua
+    [94, 200, 229, colorsOpacity], // aqua
+    [94, 200, 229, colorsOpacity], // aqua
+    [246, 80, 88, colorsOpacity], // scarlet
+
+    [255, 255, 255, 255], // spacer
+    [255, 255, 255, 255], // spacer
+    // [255, 255, 255, 255], // spacer
+  ];
+
+  const doubles = [
+    [73, 130, 207, colorsOpacity], // sky blue
+    [73, 130, 207, colorsOpacity], // sky blue
+    [94, 200, 229, colorsOpacity], // aqua
+    [94, 200, 229, colorsOpacity], // aqua
+    [94, 200, 229, colorsOpacity], // aqua
+    [246, 80, 88, colorsOpacity], // scarlet
+
+    [255, 255, 255, 255], // spacer
+    [255, 255, 255, 255], // spacer
+    // [255, 255, 255, 255], // spacer
+  ];
+
+  const colorEmployed = toothGaps
+
   // Shuffle the systemTwoColors array
-  const shuffledSystemTwoColors = shuffleArray([...systemOneColors]);
+  const shuffledSystemTwoColors = shuffleArray([...colorEmployed]);
 
   // Create the colors array
   const colors = Array(colorsCols)
@@ -91,7 +123,7 @@ const classZine = (p, refreshKey) => {
           0
         );
 
-        const colorArray = shuffleArray(systemOneColors);
+        const colorArray = shuffleArray(colorEmployed);
         const [r, g, b, a] = colorArray;
         p.fill(r, g, b, a);
         p.stroke(0);
@@ -134,7 +166,7 @@ const classZine = (p, refreshKey) => {
           0
         );
 
-        const colorArray = shuffleArray(systemOneColors);
+        const colorArray = shuffleArray(colorEmployed);
         const [r, g, b, a] = colorArray;
         p.fill(r, g, b, a);
 
@@ -168,7 +200,7 @@ const classZine = (p, refreshKey) => {
     p.background(255);
     p.strokeWeight(1);
     p.noFill();
-    p.rect(0, 0, 1280, 989);
+    // p.rect(0, 0, 1280, 989);
     p.strokeWeight(2);
 
     gridMain();
