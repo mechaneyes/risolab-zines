@@ -178,13 +178,18 @@ const classZine = (p, refreshKey) => {
         p.save(cnv, `class-zine-${timestamp}.png`);
       }
     };
+
+    p.keyPressed = () => {
+      if (p.key === "p") {
+        // exportPdf(cnv);
+      }
+    };
   };
 
   p.draw = () => {
     p.background(255);
     p.strokeWeight(1);
     p.noFill();
-    // p.rect(0, 0, 1280, 989);
     p.strokeWeight(2);
 
     gridMain();
