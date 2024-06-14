@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/layout.js"
-  ],
+, "src/app/class-zine/colorGenerator.js"  ],
   "exclude": ["node_modules"]
 }

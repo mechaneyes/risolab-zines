@@ -3,20 +3,9 @@
 import React, { useState } from "react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-const classZine = (p, refreshKey) => {
-  // Function to shuffle an array
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  const colorsCols = 9;
-  const colorsRows = 7;
+const classZine = (p) => {
   const colorsOpacity = 180;
-  const size = 120;
+  const circSize = 120;
 
   const systemOneColors = [
     // [0, 0, 0, colorsOpacity, 1],     // black
@@ -61,30 +50,20 @@ const classZine = (p, refreshKey) => {
 
   const colorEmployed = repeatedColors;
 
-  // Shuffle the colorEmployed array
-  const shuffledColors = shuffleArray([...colorEmployed]);
-
-  // Create the colors array
-  const colors = Array(colorsCols)
-    .fill(0)
-    .map(() => Array(colorsRows).fill(0));
-
-  // Assign the colors from shuffledColors to the colors array
-  for (let x = 0; x < colorsCols; x++) {
-    for (let y = 0; y < colorsRows; y++) {
-      // Modulo to loop back to the start of the array when end reached
-      const color =
-        shuffledColors[(x * colorsRows + y) % shuffledColors.length];
-      colors[x][y] = color;
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-  }
+    return array;
+  };
 
   const gridCirc = (numCols, numRows, noFill) => {
     const cols = numCols;
     const rows = numRows;
 
-    const totalWidth = size * (cols - 1);
-    const totalHeight = size * (rows - 1);
+    const totalWidth = circSize * (cols - 1);
+    const totalHeight = circSize * (rows - 1);
 
     for (let x = 0; x < cols; x++) {
       for (let y = 0; y < rows; y++) {
@@ -116,7 +95,7 @@ const classZine = (p, refreshKey) => {
           p.noFill();
         }
 
-        p.ellipse(0, 0, size, size);
+        p.ellipse(0, 0, circSize, circSize);
         p.pop();
       }
     }
