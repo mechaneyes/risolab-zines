@@ -79,9 +79,9 @@ const classZine = (p, refreshKey) => {
     }
   }
 
-  const gridMain = (noFill) => {
-    const cols = 10;
-    const rows = 8;
+  const gridCirc = (numCols, numRows, noFill) => {
+    const cols = numCols;
+    const rows = numRows;
 
     const totalWidth = size * (cols - 1);
     const totalHeight = size * (rows - 1);
@@ -122,48 +122,6 @@ const classZine = (p, refreshKey) => {
     }
   };
 
-  const gridInner = (noFill) => {
-    const cols = 9;
-    const rows = 7;
-
-    const totalWidth = size * (cols - 1);
-    const totalHeight = size * (rows - 1);
-
-    for (let x = 0; x < cols; x++) {
-      for (let y = 0; y < rows; y++) {
-        p.push();
-        p.translate(
-          p.map(
-            x,
-            0,
-            cols - 1,
-            p.width / 2 - totalWidth / 2,
-            p.width / 2 + totalWidth / 2
-          ),
-          p.map(
-            y,
-            0,
-            rows - 1,
-            p.height / 2 - totalHeight / 2,
-            p.height / 2 + totalHeight / 2
-          ),
-          0
-        );
-
-        const colorArray = shuffleArray(colorEmployed);
-        const [r, g, b, a] = colorArray;
-        p.fill(r, g, b, a);
-
-        if (noFill) {
-          p.noFill();
-        }
-
-        p.ellipse(0, 0, size, size);
-        p.pop();
-      }
-    }
-  };
-
   p.setup = () => {
     const cnv = p.createCanvas(1280, 989);
     p.noLoop();
@@ -192,9 +150,9 @@ const classZine = (p, refreshKey) => {
     p.noFill();
     p.strokeWeight(2);
 
-    gridMain();
-    gridInner();
-    gridMain(true);
+    gridCirc(10, 8, false);
+    gridCirc(9, 7, false);
+    gridCirc(10, 8, true);
   };
 };
 
